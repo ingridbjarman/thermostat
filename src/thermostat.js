@@ -67,4 +67,3 @@ Thermostat.prototype.decreaseTemperature = function() {
   return (this.temperature);
 };
 
-
