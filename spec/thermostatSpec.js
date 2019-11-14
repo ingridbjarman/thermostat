@@ -31,4 +31,39 @@ describe ('thermostat', function() {
     expect(thermo.getCurrentTemperature()).toEqual(10);
   });
 
+  it('has Power Saving mode on by default', function() {
+    expect(thermo.isPowerSavingOn()).toBe(true);
+  });
+
+  it('has the ability to turn PSM off', function() {
+    thermo.switchPowerSavingOff();
+    expect(thermo.isPowerSavingOn()).toBe(false);
+  });
+
+  it('has the ability to turn PSM back on', function() {
+    thermo.switchPowerSavingOff();
+    expect(thermo.isPowerSavingOn()).toBe(false);
+    thermo.switchPowerSavingOn();
+    expect(thermo.isPowerSavingOn()).toBe(true);
+  });
+
+  describe('when PSM is on', function() {
+    it('has a maximum temperature of 25 degrees', function() {
+      for (var i = 0; i < 6; i++) {
+        thermo.increaseTemperature();
+      }
+      expect(thermo.getCurrentTemperature()).toEqual(25);
+    });
+  });
+
+  describe('when PSM is off', function() {
+    it('has a maximum temperature of 32 degrees', function() {
+      thermo.switchPowerSavingOff();
+      for (var i = 0; i < 13; i++) {
+        thermo.increaseTemperature();
+      }
+      expect(thermo.getCurrentTemperature()).toEqual(32);
+    });
+  });
+
 });
