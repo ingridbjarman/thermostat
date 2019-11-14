@@ -74,4 +74,30 @@ describe ('thermostat', function() {
     });
   });
 
+  describe('displaying usage levels', function() {
+    describe('when the temperature is below 18 degrees', function() {
+      it('it is considered low usage', function() {
+        for (var i = 0; i < 3; i++) {
+          thermo.decreaseTemperature();
+        }
+        expect(thermo.energyUsage()).toEqual('Low Usage');
+      });
+    });
+  
+    describe('when the temperature is between 18 and 25 degrees', function() {
+      it('it is considered medium usage', function() {
+        expect(thermo.energyUsage()).toEqual('Medium Usage');
+      });
+    });
+  
+    describe('when the temperature is anything else', function() {
+      it('it is considered high usage', function() {
+        thermo.switchPowerSavingOff();
+        for (var i = 0; i < 6; i++) {
+          thermo.increaseTemperature();
+        }
+        expect(thermo.energyUsage()).toEqual('High Usage');
+      });
+    });
+  });
 });
