@@ -42,9 +42,9 @@ Thermostat.prototype.energyUsage = function() {
 
 Thermostat.prototype.isMaxTemp = function() {
   if (this.isPowerSavingOn() === false) {
-    return this.temperature === this.MAXIMUM_TEMPERATURE;
+    return this.temperature >= this.MAXIMUM_TEMPERATURE;
   }
-  return this.temperature === this.MAXIMUM_TEMPERATURE_PSM;
+  return this.temperature >= this.MAXIMUM_TEMPERATURE_PSM;
 };
 
 Thermostat.prototype.increaseTemperature = function() {
